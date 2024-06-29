@@ -6,13 +6,12 @@ VOLUME /octobot/tentacles
 VOLUME /octobot/user
 
 # requires git to install requirements with git+https
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl libxslt-dev libxcb-xinput0 libjpeg62-turbo-dev zlib1g-dev libblas-dev liblapack-dev libatlas-base-dev libopenjp2-7 libtiff-dev build-essential git gcc libffi-dev rsync libssl-dev libxml2-dev libxslt1-dev libxslt-dev libjpeg62-turbo-dev zlib1g-dev \
-    && python -m venv /opt/venv
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends curl libxslt-dev libxcb-xinput0 libjpeg62-turbo-dev zlib1g-dev libblas-dev liblapack-dev libatlas-base-dev libopenjp2-7 libtiff-dev build-essential git gcc libffi-dev rsync libssl-dev libxml2-dev libxslt1-dev libxslt-dev libjpeg62-turbo-dev zlib1g-dev
+RUN python -m venv /opt/venv
 
 # skip cryptography rust compilation (required for armv7 builds)
 ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
-
 
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
@@ -70,24 +69,14 @@ RUN python setup.py install
 WORKDIR /
 RUN pip install --prefer-binary -r /custom_requirements.txt
 
-# FROM python:3.11-slim-buster
-
 ARG TENTACLES_URL_TAG=""
 ENV TENTACLES_URL_TAG=$TENTACLES_URL_TAG
 ENV SHARE_YOUR_OCOBOT=
 
 WORKDIR /octobot
-# Import python dependencies
-
-# COPY --from=base /opt/venv /opt/venv
-# # Import built dependencies
-# COPY --from=base /opt/efs/build /opt/efs/build
-
-# COPY /octobot-packages/OctoBot/octobot/config /octobot/octobot/config
 COPY /octobot-packages/OctoBot/docker-entrypoint.sh docker-entrypoint.sh
 
-RUN rm -rf /var/lib/apt/lists/* \
-    && ln -s /opt/venv/bin/Octane Octane # Make sure we use the virtualenv
+RUN rm -rf /var/lib/apt/lists/* && ln -s /opt/venv/bin/Octane Octane
 RUN chmod +x docker-entrypoint.sh
 RUN chmod +x Octane
 
