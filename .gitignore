@@ -33,7 +33,6 @@ build/
 /.eggs/
 /my_docker_update.sh
 /users/
-.env
 /scripts/vs_build_tools_layout
 Octane_install.zip
 /tentacles
