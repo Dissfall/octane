@@ -66,9 +66,6 @@ RUN pip install ./
 WORKDIR /octobot-packages/OctoBot
 RUN python setup.py install
 
-WORKDIR /
-RUN pip install --prefer-binary -r /custom_requirements.txt
-
 ARG TENTACLES_URL_TAG=""
 ENV TENTACLES_URL_TAG=$TENTACLES_URL_TAG
 ENV SHARE_YOUR_OCOBOT=
