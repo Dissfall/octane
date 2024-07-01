@@ -24,10 +24,10 @@ RUN python -m venv /opt/venv && \
   pip install --upgrade setuptools wheel pip>=20.0.0 && \
   pip install --prefer-binary -r Async-Channel/requirements.txt -r OctoBot/requirements.txt -r OctoBot-Backtesting/requirements.txt -r OctoBot-Commons/requirements.txt -r OctoBot-evaluators/requirements.txt -r OctoBot-Services/requirements.txt -r OctoBot-Tentacles-Manager/requirements.txt -r OctoBot-Trading/requirements.txt -r trading-backend/requirements.txt
 
-COPY . /octobot-packages
-WORKDIR /octobot-packages
+WORKDIR /
+COPY /octobot-packages /octobot-packages
 
-RUN for directory in Async-Channel trading-backend OctoBot-Commons OctoBot-Tentacles-Manager OctoBot-Backtesting OctoBot-Trading OctoBot-Services OctoBot-evaluators; do \
+RUN for directory in octobot-packages/*/; do \
   cd $directory && \
   pip install ./ && \
   cd .. ; \
