@@ -119,9 +119,9 @@ scripts/
 tentacles/
 readme/
 tentacles
-README.md
+*.md
 LICENSE
-tests
+test*/
 user/
 users/
 windows_dependencies/
