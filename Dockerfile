@@ -24,16 +24,16 @@ RUN python -m venv /opt/venv && \
   pip install --upgrade setuptools wheel pip>=20.0.0 && \
   pip install --prefer-binary -r Async-Channel/requirements.txt -r OctoBot/requirements.txt -r OctoBot-Backtesting/requirements.txt -r OctoBot-Commons/requirements.txt -r OctoBot-evaluators/requirements.txt -r OctoBot-Services/requirements.txt -r OctoBot-Tentacles-Manager/requirements.txt -r OctoBot-Trading/requirements.txt -r trading-backend/requirements.txt
 
-FROM python:3.11-slim as final
+FROM python:3.11-slim AS final
 
 WORKDIR /
 COPY --from=base /root/.cache/pip /root/.cache/pip
 COPY /octobot-packages /octobot-packages
 
 RUN for directory in octobot-packages/*/; do \
-  cd $directory && \
-  pip install ./ && \
-  cd .. ; \
+  cd $directory \
+  pip install ./ \
+  cd - \
   done
 
 WORKDIR /octobot-packages/OctoBot
