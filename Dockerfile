@@ -29,7 +29,6 @@ FROM python:3.11-slim AS final
 WORKDIR /
 COPY --from=base /root/.cache/pip /root/.cache/pip
 COPY --from=base /opt/venv /opt/venv
-COPY --from=base /opt/efs/build /opt/efs/build
 COPY /octobot-packages /octobot-packages
 
 RUN export PATH="/opt/venv/bin:$PATH"
