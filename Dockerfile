@@ -40,7 +40,7 @@ WORKDIR /octobot-packages/OctoBot
 RUN python setup.py install
 
 COPY /octobot-packages/OctoBot/docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod +x docker-entrypoint.sh && chmod +x Octane
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 5001
 HEALTHCHECK --interval=1m --timeout=30s --retries=3 CMD curl --fail http://localhost:5001 || exit 1
