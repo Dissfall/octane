@@ -39,7 +39,7 @@ RUN for directory in octobot-packages/*/; do \
 WORKDIR /octobot-packages/OctoBot
 RUN python setup.py install
 
-COPY --from=base /octobot-packages/OctoBot/docker-entrypoint.sh docker-entrypoint.sh
+COPY /octobot-packages/OctoBot/docker-entrypoint.sh docker-entrypoint.sh
 RUN ln -s /opt/venv/bin/Octane Octane && chmod +x docker-entrypoint.sh && chmod +x Octane
 
 EXPOSE 5001
