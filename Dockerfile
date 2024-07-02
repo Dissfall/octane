@@ -30,6 +30,8 @@ WORKDIR /
 COPY --from=base /root/.cache/pip /root/.cache/pip
 COPY /octobot-packages /octobot-packages
 
+RUN export PATH="/opt/venv/bin:$PATH"
+
 RUN for directory in octobot-packages/*/; do \
   cd $directory; \
   pip install ./; \
@@ -40,7 +42,7 @@ WORKDIR /octobot-packages/OctoBot
 RUN python setup.py install
 
 COPY /octobot-packages/OctoBot/docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod +x docker-entrypoint.sh
+RUN ln -s /opt/venv/bin/Octane Octane && chmod +x docker-entrypoint.sh && chmod +x Octane
 
 EXPOSE 5001
 HEALTHCHECK --interval=1m --timeout=30s --retries=3 CMD curl --fail http://localhost:5001 || exit 1
