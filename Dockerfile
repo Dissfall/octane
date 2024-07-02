@@ -31,9 +31,9 @@ COPY --from=base /root/.cache/pip /root/.cache/pip
 COPY /octobot-packages /octobot-packages
 
 RUN for directory in octobot-packages/*/; do \
-  cd $directory \
-  pip install ./ \
-  cd - \
+  cd $directory; \
+  pip install ./; \
+  cd -; \
   done
 
 WORKDIR /octobot-packages/OctoBot
