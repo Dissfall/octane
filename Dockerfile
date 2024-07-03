@@ -15,7 +15,7 @@ WORKDIR /octobot-packages
 
 RUN pip install --upgrade setuptools wheel pip>=20.0.0 \
   && pip install --prefer-binary -r Async-Channel/requirements.txt -r OctoBot/requirements.txt -r OctoBot-Backtesting/requirements.txt -r OctoBot-Commons/requirements.txt -r OctoBot-evaluators/requirements.txt -r OctoBot-Services/requirements.txt -r OctoBot-Tentacles-Manager/requirements.txt -r OctoBot-Trading/requirements.txt -r trading-backend/requirements.txt \
-  && python OctoBot/setup.py install
+  && cd OctoBot && python setup.py install
 
 FROM python:3.11-slim AS final
 
